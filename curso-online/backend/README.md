@@ -8,7 +8,7 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento e executar o
 
 ## Pré-requisitos
 
-Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina antes de prosseguir.
+Certifique-se de ter o **Docker** e o **Docker Compose** instalados em sua máquina antes de prosseguir. Se ainda não tiver, siga as instruções de instalação disponíveis [aqui](https://docs.docker.com/get-docker/).
 
 ## Passos para executar o projeto
 
@@ -18,9 +18,13 @@ Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina ante
 git clone https://github.com/pedrohygorveras/Desafio.git
 ```
 
-### 2. Configurar o arquivo .env
+### 2. Configure o arquivo .env
 
 Copie o arquivo .env.example e renomeie a cópia para ".env", em seguida, faça os ajustes necessários nos dados conforme suas configurações específicas.
+
+Exemplo:
+
+![image-env-file](./doc/prints/env-file.png)
 
 **Este projeto utiliza o PostgreSQL como banco de dados. Abaixo estão algumas informações relevantes sobre as configurações:**
 
@@ -41,12 +45,14 @@ Serviço PostgreSQL: (Configurável no arquivo docker-compose.yml)
 Certifique-se de estar no diretório: '\\**caminho-do-projeto**\\Desafio\curso-online\backend' e execute o seguinte comando:
 
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 ### 4. Aguarde a inicialização
 
 Aguarde até que os contêineres estejam totalmente inicializados. Pode levar alguns minutos na primeira execução.
+
+![image-server-is-running](./doc/prints/server-is-running.png)
 
 ### 5. Acesse a aplicação
 

@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - ./data:/docker-entrypoint-initdb.d
+    networks:
+      - my-network
 
   # API service configuration
   app:
@@ -22,5 +24,10 @@ services:
       - "8686:8686"
     volumes:
       - .:/usr/app
+    networks:
+      - my-network
     depends_on:
       - postgresql
+
+networks:
+  my-network:
