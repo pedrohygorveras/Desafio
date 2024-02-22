@@ -9,6 +9,7 @@ import env from "../environments";
 import ApiRoutes from "./routes/ApiRoutes";
 import CategoryRoutes from "./routes/CategoryRoutes";
 import BrandRoutes from "./routes/BrandRoutes";
+import ProductRoutes from "./routes/ProductRoutes";
 
 class App {
   public app: express.Application;
@@ -39,6 +40,7 @@ class App {
     this.app.use("/", ApiRoutes);
     this.app.use("/category", CategoryRoutes);
     this.app.use("/brand", BrandRoutes);
+    this.app.use("/product", ProductRoutes);
   }
 
   private run(): void {
