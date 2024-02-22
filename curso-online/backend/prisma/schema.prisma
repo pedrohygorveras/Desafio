@@ -12,3 +12,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Category {
+  category_id String   @id @default(uuid())
+  title       String   @db.VarChar(200)
+  description String?  @db.Text()
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  product_category ProductCategory[] @relation("category_product_category")
+}
+
+model Brand {
+  brand_id    String   @id @default(uuid())
+  title       String   @db.VarChar(200)
+  description String?  @db.Text()
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  product Product[] @relation("brand_product")
+}
+
+model Product {
+  product_id  String   @id @default(uuid())
+  brand_id    String
+  title       String   @db.VarChar(200)
+  description String   @db.Text()
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
+  product_category ProductCategory[] @relation("product_product_category")
+
+  brand Brand? @relation("brand_product", fields: [brand_id], references: [brand_id])
+}
+
+model ProductCategory {
+  product_category_id String   @id @default(uuid())
+  product_id          String
+  category_id         String
+  created_at          DateTime @default(now())
+  updated_at          DateTime @default(now())
+
+  product  Product?  @relation("product_product_category", fields: [product_id], references: [product_id])
+  category Category? @relation("category_product_category", fields: [category_id], references: [category_id])
+}
