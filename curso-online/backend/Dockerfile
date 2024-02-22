@@ -1,12 +1,12 @@
-# Use the official PostgreSQL image from Docker Hub
-FROM postgres:14.3
+FROM node:alpine
 
-# Environment variables for PostgreSQL user and password
-ENV POSTGRES_USER="edu"
-ENV POSTGRES_PASSWORD="c8596sgw"
+WORKDIR /usr/app
 
-# Copy the SQL script into the container
-COPY ./data/init.sql /docker-entrypoint-initdb.d/
+COPY package*.json ./
+RUN npm install
 
-# Expose the default PostgreSQL port (5432)
-EXPOSE 5432
+COPY . .
+
+EXPOSE 8686
+
+CMD ["npm", "run", "dev"]
