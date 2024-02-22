@@ -35,7 +35,7 @@ model Brand {
 
 model Product {
   product_id  String   @id @default(uuid())
-  brand_id    String
+  brand_id    String?
   title       String   @db.VarChar(200)
   description String   @db.Text()
   created_at  DateTime @default(now())
