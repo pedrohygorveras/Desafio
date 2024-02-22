@@ -10,7 +10,7 @@ import {
   iDeleteCategory,
 } from "../interfaces/ICategory";
 
-class CatalogRepository {
+class CategoryRepository {
   private prisma: PrismaClient;
 
   constructor() {
@@ -183,4 +183,4 @@ class CatalogRepository {
   }
 }
 
-export default new CatalogRepository();
+export default new CategoryRepository();
