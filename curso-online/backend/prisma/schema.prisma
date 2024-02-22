@@ -16,7 +16,7 @@ datasource db {
 model Category {
   category_id String   @id @default(uuid())
   title       String   @db.VarChar(200)
-  description String?  @db.Text()
+  description String   @db.Text()
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now())
 
