@@ -1,23 +1,63 @@
-# Running PostgreSQL Docker Container
+# Backend
 
-This Dockerfile is designed to create a PostgreSQL Docker container with a specified user, password, and an initial SQL script for database setup.
+Teste para candidatos à vaga de Desenvolvedor REACT PLENO
 
-## Prerequisites
+## Instalação
 
-Make sure you have Docker installed on your machine. You can download it from [Docker's official website](https://www.docker.com/get-started).
+Siga os passos abaixo para configurar o ambiente de desenvolvimento e executar o projeto.
 
-## Build the Docker Image
+## Pré-requisitos
 
-To build the Docker image, navigate to the directory containing your Dockerfile and run the following command in the terminal:
+Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina antes de prosseguir.
 
-```bash
-docker build -t postgres .
+## Passos para executar o projeto
+
+### 1. Clone o repositório
+
+```
+git clone https://github.com/pedrohygorveras/Desafio.git
 ```
 
-## Run the PostgreSQL Container
+### 2. Configurar o arquivo .env
 
-Once the Docker image is built, you can run the PostgreSQL container using the following command:
+Copie o arquivo .env.example e renomeie a cópia para ".env", em seguida, faça os ajustes necessários nos dados conforme suas configurações específicas.
 
-```bash
-docker run -d -p 5432:5432 --name postgres-container postgres
+**Este projeto utiliza o PostgreSQL como banco de dados. Abaixo estão algumas informações relevantes sobre as configurações:**
+
+Serviço PostgreSQL: (Configurável no arquivo docker-compose.yml)
+
+**Nome do banco de dados:** course
+
+**Porta Exposta:** 5432
+
+**Usuário:** edu
+
+**Senha:** c8596sgw
+
+**Configurações Adicionais:** O diretório ./data contém o script de inicialização do banco de dados.
+
+### 3. Execute o Docker Compose
+
+Certifique-se de estar no diretório: '\\**caminho-do-projeto**\\Desafio\curso-online\backend' e execute o seguinte comando:
+
 ```
+docker-compose up -d
+```
+
+### 4. Aguarde a inicialização
+
+Aguarde até que os contêineres estejam totalmente inicializados. Pode levar alguns minutos na primeira execução.
+
+### 5. Acesse a aplicação
+
+Após a inicialização, a aplicação estará disponível em http://localhost:8686. Você pode testar a API acessando esse endpoint.
+
+### 6. Encerre os serviços
+
+Quando terminar de usar o projeto, você pode parar e remover os contêineres com o seguinte comando:
+
+```
+docker-compose down
+```
+
+Isso encerrará os serviços e liberará as portas no seu sistema.
