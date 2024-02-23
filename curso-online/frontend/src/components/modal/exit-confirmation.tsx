@@ -5,7 +5,7 @@ interface ExitConfirmationProps {
   goBack: () => void;
 }
 
-const ExitConfirmation: React.FC<ExitConfirmationProps> = ({
+const ExitConfirmationModal: React.FC<ExitConfirmationProps> = ({
   modalRef,
   goBack,
 }) => {
@@ -44,4 +44,4 @@ const ExitConfirmation: React.FC<ExitConfirmationProps> = ({
   );
 };
 
-export { ExitConfirmation };
+export { ExitConfirmationModal };

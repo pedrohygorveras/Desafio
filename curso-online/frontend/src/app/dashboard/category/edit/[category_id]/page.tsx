@@ -1,87 +1,47 @@
-"use client";
-
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 
 import { DashboardLayout } from "@/components/layouts/dashboard";
-import { Input, TextArea } from "@/components/form/controls";
-import { Header } from "@/components/header/title";
+import { ContentPage } from "./content-page";
 
 interface PageProps {
   params: { category_id: string };
 }
 
-interface CategoryProps {
-  category_id: string;
-  title: string;
-  description: string;
+async function getCategory(category_id: string) {
+  try {
+    const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
+
+    const res = await fetch(`${NEXT_PUBLIC_BACKEND_API}/category`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        category_id: category_id,
+      },
+      next: {
+        tags: ["category-collection"],
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-const Edit: React.FC<PageProps> = ({ params }) => {
-  const [data, setData] = useState<CategoryProps | null>(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+export default async function EditCategory({ params }: PageProps) {
+  const { category_id } = params;
 
-  function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value);
-  }
-
-  function handleDescriptionChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    setDescription(event.target.value);
-  }
-
-  function handleSubmit() {
-    try {
-      console.log(title);
-      console.log(description);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  function backToPreviousPage() {}
+  const category = await getCategory(category_id);
 
   return (
     <DashboardLayout>
-      <div className="">
-        <Header
-          title="Editar Categoria"
-          subtitle={data ? data.title : null}
-          goBack={backToPreviousPage}
-        />
-
-        <form className="flex flex-col gap-3">
-          <Input
-            label="Título da categoria *"
-            value={title}
-            onChange={handleTitleChange}
-          />
-
-          <TextArea
-            label="Descrição da categoria *"
-            value={description}
-            onChange={handleDescriptionChange}
-          />
-
-          <div className="text-right py-10">
-            <button
-              className="btn btn-outline btn-error mr-2"
-              type="button"
-              onClick={backToPreviousPage}
-            >
-              Cancelar
-            </button>
-            <button
-              className="btn btn-success text-white w-32"
-              type="button"
-              onClick={handleSubmit}
-            >
-              Salvar
-            </button>
-          </div>
-        </form>
-      </div>
+      <ContentPage category={category} />
     </DashboardLayout>
   );
-};
-
-export default Edit;
+}

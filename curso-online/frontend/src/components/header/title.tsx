@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, goBack }) => {
           <h1 className="font-bold text-2xl">{title}</h1>
           {subtitle && (
             <div>
-              <h2 className="font-bold text-xs">{subtitle}</h2>
+              <h2 className="font-normal text-xs">{subtitle}</h2>
             </div>
           )}
         </div>
