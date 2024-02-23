@@ -1,5 +1,7 @@
 # Backend
 
+![image-env-file](./doc/MER/curso-online.drawio.png)
+
 Bem vindo ao meu teste para à vaga de Desenvolvedor REACT PLENO.
 
 ## Instalação
@@ -26,17 +28,25 @@ Exemplo:
 
 ![image-env-file](./doc/prints/env-file.png)
 
+Se preferir não alterar as informações de conexão, copie e cole a seguinte URL no seu arquivo `.env`:
+
+```dotenv
+DATABASE_URL=postgresql://user_betashop:c8596sgw@postgresql:5432/db_betashop
+```
+
 **Este projeto utiliza o PostgreSQL como banco de dados. Abaixo estão algumas informações relevantes sobre as configurações:**
 
-Serviço PostgreSQL: (Configurável no arquivo docker-compose.yml)
+Serviço PostgreSQL: (Configurável no arquivo `docker-compose.yml`)
 
-**Nome do banco de dados:** course
+**Nome do banco de dados:** `db_betashop`
 
-**Porta Exposta:** 5432
+**Host:** `postgresql` (Nome do serviço no arquivo docker-compose.yml)
 
-**Usuário:** edu
+**Porta Exposta:** `5432`
 
-**Senha:** c8596sgw
+**Usuário:** `user_betashop`
+
+**Senha:** `c8596sgw`
 
 **Configurações Adicionais:** O diretório ./data contém o script de inicialização do banco de dados.
 
@@ -50,7 +60,7 @@ docker-compose up
 
 ### 4. Aguarde a inicialização
 
-Aguarde até que os contêineres estejam totalmente inicializados. Pode levar alguns minutos na primeira execução.
+Aguarde até que os contêineres estejam completamente inicializados, conforme ilustrado na imagem abaixo. **O processo pode demandar alguns minutos durante a primeira execução.**
 
 ![image-server-is-running](./doc/prints/server-is-running.png)
 

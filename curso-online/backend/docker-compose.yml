@@ -6,7 +6,7 @@ services:
     image: postgres
     container_name: postgresql
     environment:
-      POSTGRES_USER: edu
+      POSTGRES_USER: user_betashop
       POSTGRES_PASSWORD: c8596sgw
     ports:
       - "5432:5432"

@@ -1,2 +1,2 @@
 -- init.sql
-CREATE DATABASE course;
+CREATE DATABASE db_betashop;
