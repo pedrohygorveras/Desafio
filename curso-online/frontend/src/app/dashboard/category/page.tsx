@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import Link from "next/link";
 
+import { DashboardLayout } from "@/components/layouts/dashboard";
 import { Header } from "@/components/header/title";
 import { CategoryCard } from "@/components/card/category";
-import { DashboardLayout } from "@/components/layouts/dashboard";
 
 interface CategoryProps {
   id: string;
@@ -19,8 +19,8 @@ export default function DashboardCategory() {
 
   return (
     <DashboardLayout>
-      <div className="">
-        <Header title="Categoria" />
+      <div className="overflow-x-hidden">
+        <Header title="Categorias" />
 
         <div className="text-right">
           <Link className="btn btn-primary" href={"/dashboard/category/create"}>
@@ -36,7 +36,7 @@ export default function DashboardCategory() {
               })}
             </div>
           ) : (
-            <div className="flex items-center">
+            <div className="">
               <div>
                 <h1 className="font-bold text-2xl">
                   Nenhuma foi categoria cadastrada.
