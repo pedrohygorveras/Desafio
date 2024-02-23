@@ -1,12 +1,19 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 import { DashboardLayout } from "@/components/layouts/dashboard";
 import { Input, TextArea } from "@/components/form/controls";
 import { Header } from "@/components/header/title";
+import { ExitConfirmation } from "@/components/modal/exit-confirmation";
+import { refreshCache } from "@/components/actions";
 
 const Create: React.FC = () => {
+  const exitConfirmationModalRef = useRef<HTMLDialogElement | null>(null);
+  const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -18,16 +25,50 @@ const Create: React.FC = () => {
     setDescription(event.target.value);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     try {
-      console.log(title);
-      console.log(description);
+      if (!title || !description) return;
+
+      const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
+
+      const res = await fetch(`${NEXT_PUBLIC_BACKEND_API}/category`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+        }),
+      });
+
+      if (res.ok) {
+        refreshCache({
+          key: "category-collection",
+        });
+
+        goBack();
+      } else {
+        throw new Error("Failed to create a Product");
+      }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
-  function backToPreviousPage() {}
+  function backToPreviousPage() {
+    const shouldShowConfirmation = title !== "" || description !== "";
+
+    if (shouldShowConfirmation && exitConfirmationModalRef.current) {
+      exitConfirmationModalRef.current.showModal();
+    } else {
+      goBack();
+    }
+  }
+
+  function goBack() {
+    router.push("/dashboard/category");
+  }
 
   return (
     <DashboardLayout>
@@ -65,6 +106,8 @@ const Create: React.FC = () => {
           </div>
         </form>
       </div>
+
+      <ExitConfirmation modalRef={exitConfirmationModalRef} goBack={goBack} />
     </DashboardLayout>
   );
 };
