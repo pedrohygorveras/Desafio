@@ -4,7 +4,7 @@ import { refreshCache } from "../actions/server";
 
 interface DeleteItemModalProps {
   modalRef: React.RefObject<HTMLDialogElement>;
-  key: string;
+  keyTag: string;
   route: string;
   field: string;
   value: string;
@@ -12,7 +12,7 @@ interface DeleteItemModalProps {
 
 const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   modalRef,
-  key,
+  keyTag,
   route,
   field,
   value,
@@ -35,10 +35,10 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
       closeModal();
 
       refreshCache({
-        key: key,
+        keyTag: keyTag,
       });
     } else {
-      throw new Error("Failed to create a Product");
+      console.error("An error has occurred. Please try again later");
     }
   }
 
