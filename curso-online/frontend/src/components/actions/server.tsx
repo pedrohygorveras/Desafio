@@ -3,13 +3,13 @@
 import { revalidateTag } from "next/cache";
 
 interface RefreshCacheProps {
-  key: string;
+  keyTag: string;
 }
 
 async function refreshCache(props: RefreshCacheProps): Promise<void> {
-  const { key } = props;
+  const { keyTag } = props;
 
-  revalidateTag(key);
+  revalidateTag(keyTag);
 }
 
 export { refreshCache };
