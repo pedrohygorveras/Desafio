@@ -21,9 +21,33 @@ class ProductCategoryRepository {
     try {
       const { filters, parsedLimit, parsedIndex } = data;
 
-      const result = await this.prisma.productCategory.findMany({
+      const order_by_field = filters.order_by_field
+        ? filters.order_by_field
+        : "created_at";
+
+      const order_by_direction = filters.order_by_direction
+        ? filters.order_by_direction
+        : "desc";
+
+      const result = await this.prisma.category.findMany({
+        include: {
+          product_category: {
+            select: {
+              product: {
+                include: {
+                  brand: true,
+                },
+              },
+            },
+          },
+        },
+        where: {
+          category_id: {
+            contains: filters.category_id,
+          },
+        },
         orderBy: {
-          created_at: "desc",
+          [order_by_field]: order_by_direction,
         },
         take: parsedLimit,
         skip: parsedIndex,
@@ -45,17 +69,31 @@ class ProductCategoryRepository {
     try {
       const { product_id, category_id } = data;
 
-      const result = await this.prisma.productCategory.create({
+      const isExists = await this.prisma.productCategory.findFirst({
         select: {
           product_category_id: true,
         },
-        data: {
+        where: {
           product_id,
           category_id,
         },
       });
 
-      return result;
+      if (!isExists) {
+        await this.prisma.productCategory.create({
+          select: {
+            product_category_id: true,
+          },
+          data: {
+            product_id,
+            category_id,
+          },
+        });
+
+        return { success: true };
+      }
+
+      return { success: false };
     } catch (error: any) {
       return {
         error: error?.message,

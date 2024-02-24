@@ -23,17 +23,41 @@ class ProductRepository {
     try {
       const { filters, parsedLimit, parsedIndex } = data;
 
+      const order_by_field = filters.order_by_field
+        ? filters.order_by_field
+        : "created_at";
+
+      const order_by_direction = filters.order_by_direction
+        ? filters.order_by_direction
+        : "desc";
+
       const result = await this.prisma.product.findMany({
         include: {
           brand: true,
+          product_category: {
+            include: {
+              category: true,
+            },
+          },
         },
         where: {
           title: {
             contains: filters.search,
           },
+          ...(filters.brand && {
+            AND: [
+              {
+                brand: {
+                  title: {
+                    contains: filters.brand,
+                  },
+                },
+              },
+            ],
+          }),
         },
         orderBy: {
-          created_at: "desc",
+          [order_by_field]: order_by_direction,
         },
         take: parsedLimit,
         skip: parsedIndex,

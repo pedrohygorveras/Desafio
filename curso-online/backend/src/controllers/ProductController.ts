@@ -16,10 +16,27 @@ class ProductController {
     }
 
     try {
-      const { search, limit, index } = req.query;
+      const {
+        search,
+        order_by_field,
+        order_by_direction,
+        brand,
+        limit,
+        index,
+      } = req.query;
 
       const filters = {
         search: typeof search === "string" ? search : undefined,
+
+        brand: typeof brand === "string" ? brand : undefined,
+
+        order_by_field:
+          typeof order_by_field === "string" ? order_by_field : undefined,
+
+        order_by_direction:
+          typeof order_by_direction === "string"
+            ? order_by_direction
+            : undefined,
       };
 
       const dataObj = {

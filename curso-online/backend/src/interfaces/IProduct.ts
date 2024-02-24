@@ -1,6 +1,9 @@
 interface iCollectionProduct {
   filters: {
     search?: string | undefined;
+    brand?: string | undefined;
+    order_by_field?: string | undefined;
+    order_by_direction?: string | undefined;
   };
   parsedLimit: number;
   parsedIndex: number;

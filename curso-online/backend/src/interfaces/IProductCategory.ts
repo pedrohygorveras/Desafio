@@ -1,5 +1,9 @@
 interface iCollectionProductCategory {
-  filters: {};
+  filters: {
+    category_id?: string | undefined;
+    order_by_field?: string | undefined;
+    order_by_direction?: string | undefined;
+  };
   parsedLimit: number;
   parsedIndex: number;
 }

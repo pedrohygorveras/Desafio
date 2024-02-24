@@ -18,8 +18,10 @@ class ProductCategoryRoutes {
     this.routes.post(
       "/",
       [
-        body("product_id").notEmpty().withMessage("product_id is required."),
-        body("category_id").notEmpty().withMessage("category_id is required."),
+        header("product_id").notEmpty().withMessage("product_id is required."),
+        header("category_id")
+          .notEmpty()
+          .withMessage("category_id is required."),
       ],
       ProductCategoryController.store
     );
