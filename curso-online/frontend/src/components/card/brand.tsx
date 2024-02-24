@@ -52,7 +52,7 @@ const BrandCard: React.FC<BrandCardProps> = ({ brand }) => {
       </div>
 
       <DeleteItemModal
-        key="brand-collection"
+        keyTag="brand-collection"
         route="/brand"
         field="brand_id"
         value={brand.brand_id}
