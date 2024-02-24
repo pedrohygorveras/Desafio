@@ -53,15 +53,15 @@ const ContentPage: React.FC<BrandProps> = ({ brand }) => {
 
       if (res.ok) {
         refreshCache({
-          key: "brand-collection",
+          keyTag: "brand-collection",
         });
 
         goBack();
       } else {
-        throw new Error("Failed to create a Product");
+        console.error("An error has occurred. Please try again later");
       }
     } catch (error) {
-      console.log(error);
+      console.error("An error has occurred. Please try again later");
     }
   }
 

@@ -44,15 +44,15 @@ const Create: React.FC = () => {
 
       if (res.ok) {
         refreshCache({
-          key: "brand-collection",
+          keyTag: "brand-collection",
         });
 
         goBack();
       } else {
-        throw new Error("Failed to create a Brand");
+        console.error("An error has occurred. Please try again later");
       }
     } catch (error) {
-      console.log(error);
+      console.error("An error has occurred. Please try again later");
     }
   }
 

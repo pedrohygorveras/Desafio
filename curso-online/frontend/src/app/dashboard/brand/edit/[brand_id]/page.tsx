@@ -17,13 +17,14 @@ async function getBrand(brand_id: string) {
         "Content-type": "application/json",
         brand_id: brand_id,
       },
+      cache: "no-store",
       next: {
         tags: ["brand-collection"],
       },
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      console.error("An error has occurred. Please try again later");
     }
 
     const data = await res.json();

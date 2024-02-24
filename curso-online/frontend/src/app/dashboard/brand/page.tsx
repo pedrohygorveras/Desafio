@@ -42,7 +42,7 @@ async function getBrands(query: QueryProps) {
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      console.error("An error has occurred. Please try again later");
     }
 
     const data = await res.json();
@@ -71,7 +71,7 @@ export default async function DashboardBrand({
           </Link>
         </div>
 
-        <Filter key="brand-collection" />
+        <Filter keyTag="brand-collection" />
 
         <div className="py-10">
           {result && result.length > 0 ? (
@@ -79,7 +79,11 @@ export default async function DashboardBrand({
               <div className="mb-10">
                 <div className="flex items-center justify-between">
                   <div></div>
-                  <Pagination qtd={qtd} key="brand-collection" route="brand" />
+                  <Pagination
+                    qtd={qtd}
+                    keyTag="brand-collection"
+                    route="brand"
+                  />
                 </div>
               </div>
 
@@ -98,7 +102,11 @@ export default async function DashboardBrand({
                       {qtd} registros
                     </p>
                   </div>
-                  <Pagination qtd={qtd} key="brand-collection" route="brand" />
+                  <Pagination
+                    qtd={qtd}
+                    keyTag="brand-collection"
+                    route="brand"
+                  />
                 </div>
               </div>
             </div>
