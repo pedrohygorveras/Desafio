@@ -88,6 +88,11 @@ class ProductRepository {
       const result = await this.prisma.product.findUnique({
         include: {
           brand: true,
+          product_category: {
+            include: {
+              category: true,
+            },
+          },
         },
         where: {
           product_id: product_id,

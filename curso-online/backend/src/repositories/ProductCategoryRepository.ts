@@ -80,7 +80,7 @@ class ProductCategoryRepository {
       });
 
       if (!isExists) {
-        await this.prisma.productCategory.create({
+        const result = await this.prisma.productCategory.create({
           select: {
             product_category_id: true,
           },
@@ -90,7 +90,7 @@ class ProductCategoryRepository {
           },
         });
 
-        return { success: true };
+        return { success: true, result };
       }
 
       return { success: false };
