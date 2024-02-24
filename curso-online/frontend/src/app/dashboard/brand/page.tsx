@@ -1,20 +1,64 @@
-"use client";
-
-import { useState } from "react";
-
 import Link from "next/link";
 
 import { DashboardLayout } from "@/components/layouts/dashboard";
 import { Header } from "@/components/header/title";
+import { Pagination } from "@/components/pagination/main";
+import { BrandCard } from "@/components/card/brand";
+import { Filter } from "@/components/filters/search-only";
 
 interface BrandProps {
-  id: string;
+  brand_id: string;
   title: string;
   description: string;
 }
 
-export default function DashboardBrand() {
-  const [brands, setBrands] = useState<BrandProps[]>([]);
+interface QueryProps {
+  index?: string | number | undefined;
+  limit?: string | number | undefined;
+  search?: string | number | undefined;
+}
+
+async function getBrands(query: QueryProps) {
+  try {
+    const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
+
+    const { limit, index, search } = query;
+
+    const parsedIndex = !isNaN(parseInt(String(index), 10)) ? index : 0;
+    const parsedLimit = !isNaN(parseInt(String(limit), 10)) ? limit : 6;
+    const parsedSearch = search ? `&search=${search}` : "";
+
+    const BASE_URL = `${NEXT_PUBLIC_BACKEND_API}/brand/collection?index=${parsedIndex}&limit=${parsedLimit}${parsedSearch}`;
+
+    const res = await fetch(BASE_URL, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      cache: "no-store",
+      next: {
+        tags: ["brand-collection"],
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export default async function DashboardBrand({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  let { result, qtd } = await getBrands(searchParams as QueryProps);
 
   return (
     <DashboardLayout>
@@ -27,13 +71,41 @@ export default function DashboardBrand() {
           </Link>
         </div>
 
+        <Filter key="brand-collection" />
+
         <div className="py-10">
-          {brands && brands.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[220px]"></div>
+          {result && result.length > 0 ? (
+            <div className="">
+              <div className="mb-10">
+                <div className="flex items-center justify-between">
+                  <div></div>
+                  <Pagination qtd={qtd} key="brand-collection" route="brand" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 auto-rows-[220px]">
+                {result.map((brand: BrandProps) => {
+                  return <BrandCard key={brand.brand_id} brand={brand} />;
+                })}
+              </div>
+
+              <div className="my-10">
+                <div className="h-px bg-base-200 mb-5"></div>
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="o-sm font-bold hidden sm:block">
+                      {qtd} registros
+                    </p>
+                  </div>
+                  <Pagination qtd={qtd} key="brand-collection" route="brand" />
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="">
               <div>
-                <h1 className="font-bold text-2xl">
+                <h1 className="font-bold o-2xl">
                   Nenhuma foi marca cadastrada.
                 </h1>
               </div>
