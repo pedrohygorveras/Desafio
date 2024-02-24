@@ -4,7 +4,7 @@ import { DashboardLayout } from "@/components/layouts/dashboard";
 import { Header } from "@/components/header/title";
 import { Pagination } from "@/components/pagination/main";
 import { CategoryCard } from "@/components/card/category";
-import { Filter } from "./filter";
+import { Filter } from "@/components/filters/search-only";
 
 interface CategoryProps {
   category_id: string;
@@ -35,6 +35,7 @@ async function getCategories(query: QueryProps) {
       headers: {
         "Content-type": "application/json",
       },
+      cache: "no-store",
       next: {
         tags: ["category-collection"],
       },

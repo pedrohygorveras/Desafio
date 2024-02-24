@@ -49,7 +49,7 @@ const Create: React.FC = () => {
 
         goBack();
       } else {
-        throw new Error("Failed to create a Product");
+        throw new Error("Failed to create a Category");
       }
     } catch (error) {
       console.log(error);
