@@ -4,6 +4,7 @@ import { refreshCache } from "../actions/server";
 
 interface DeleteItemModalProps {
   modalRef: React.RefObject<HTMLDialogElement>;
+  key: string;
   route: string;
   field: string;
   value: string;
@@ -11,6 +12,7 @@ interface DeleteItemModalProps {
 
 const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   modalRef,
+  key,
   route,
   field,
   value,
@@ -30,11 +32,11 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
     });
 
     if (res.ok) {
-      refreshCache({
-        key: "category-collection",
-      });
-
       closeModal();
+
+      refreshCache({
+        key: key,
+      });
     } else {
       throw new Error("Failed to create a Product");
     }
