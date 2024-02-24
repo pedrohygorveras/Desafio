@@ -3,7 +3,10 @@
 import React, { useRef } from "react";
 
 import { DeleteItemModal } from "../modal/delete-item";
+
 import Link from "next/link";
+
+import { MdEdit, MdDelete } from "react-icons/md";
 
 interface CategoryCardProps {
   category: {
@@ -24,29 +27,27 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
 
   return (
     <>
-      <div className="rounded-md text-left flex flex-col outline-none bg-slate-800 p-5 overflow-hidden relative">
-        <div className="h-[120px]">
-          <h2 className="line-clamp-1 text-xl font-bold text-slate-200">
-            {category.title}
-          </h2>
-          <p className="line-clamp-3 text-sm leading-5 text-slate-400 mt-2">
-            {category.description}
-          </p>
-        </div>
-        <div className="flex items-end h-full">
-          <Link
-            className="btn btn-ghost mr-2"
-            href={`/dashboard/category/edit/${category.category_id}`}
-          >
-            Editar
-          </Link>
-          <button
-            type="button"
-            className="btn btn-outline btn-error"
-            onClick={handleDelete}
-          >
-            Excluir
-          </button>
+      <div className="card bg-base-300 border border-base-200 border-l-4 border-l-primary overflow-hidden shadow-md hover:shadow-none">
+        <div className="card-body">
+          <div>
+            <h2 className="line-clamp-1 card-title">{category.title}</h2>
+            <p className="line-clamp-2 mt-1">{category.description}</p>
+          </div>
+          <div className="card-actions h-full items-end space-x-0.5">
+            <Link
+              className="btn btn-active btn-square w-12 h-12"
+              href={`/dashboard/category/edit/${category.category_id}`}
+            >
+              <MdEdit className="text-2xl" />
+            </Link>
+
+            <button
+              className="btn btn-active btn-square w-12 h-12"
+              onClick={handleDelete}
+            >
+              <MdDelete className="text-2xl" />
+            </button>
+          </div>
         </div>
       </div>
 
