@@ -7,20 +7,20 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/form/controls";
 import { refreshCache } from "@/components/actions/server";
 
-const Filter: React.FC<{ keyTag: string }> = ({ keyTag }) => {
+const FilterBrand: React.FC<{ keyTag: string }> = ({ keyTag }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState("");
+  const [brand, setBrand] = useState("");
 
-  function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleBrandChange(event: ChangeEvent<HTMLInputElement>) {
     const value = String(event.target.value);
 
-    setSearch(value);
+    setBrand(value);
 
     const current = new URLSearchParams(Array.from(searchParams.entries()));
-    current.set("search", value);
+    current.set("brand", value);
 
     const currentQuery = current.toString();
     const query = currentQuery ? `?${currentQuery}` : ``;
@@ -33,16 +33,16 @@ const Filter: React.FC<{ keyTag: string }> = ({ keyTag }) => {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <Input
-        label="Buscar"
-        value={search}
-        placeholder="Pesquise por títulos..."
+        label="Marcas"
+        value={brand}
+        placeholder="Pesquise por marcas..."
         length={false}
-        onChange={handleSearchChange}
+        onChange={handleBrandChange}
       />
     </div>
   );
 };
 
-export { Filter };
+export { FilterBrand };
