@@ -6,11 +6,11 @@ import { refreshCache } from "@/components/actions/server";
 
 interface PaginationProps {
   route: string;
-  key: string;
+  keyTag: string;
   qtd: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ route, key, qtd }) => {
+const Pagination: React.FC<PaginationProps> = ({ route, keyTag, qtd }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({ route, key, qtd }) => {
   const nextPage = () => {
     if (hasNextPage) {
       refreshCache({
-        key: key,
+        keyTag: keyTag,
       });
 
       const current = new URLSearchParams(Array.from(searchParams.entries()));
@@ -51,7 +51,7 @@ const Pagination: React.FC<PaginationProps> = ({ route, key, qtd }) => {
   const previousPage = () => {
     if (hasPrevPage) {
       refreshCache({
-        key: key,
+        keyTag: keyTag,
       });
 
       const current = new URLSearchParams(Array.from(searchParams.entries()));
