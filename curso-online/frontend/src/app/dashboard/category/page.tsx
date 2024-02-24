@@ -42,7 +42,7 @@ async function getCategories(query: QueryProps) {
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      console.error("An error has occurred. Please try again later");
     }
 
     const data = await res.json();
@@ -71,7 +71,7 @@ export default async function DashboardCategory({
           </Link>
         </div>
 
-        <Filter key="category-collection" />
+        <Filter keyTag="category-collection" />
 
         <div className="py-10">
           {result && result.length > 0 ? (
@@ -81,7 +81,7 @@ export default async function DashboardCategory({
                   <div></div>
                   <Pagination
                     qtd={qtd}
-                    key="category-collection"
+                    keyTag="category-collection"
                     route="category"
                   />
                 </div>
@@ -109,7 +109,7 @@ export default async function DashboardCategory({
                   </div>
                   <Pagination
                     qtd={qtd}
-                    key="category-collection"
+                    keyTag="category-collection"
                     route="category"
                   />
                 </div>

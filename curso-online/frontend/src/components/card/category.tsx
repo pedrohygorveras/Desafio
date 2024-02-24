@@ -52,7 +52,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
       </div>
 
       <DeleteItemModal
-        key="category-collection"
+        keyTag="category-collection"
         route="/category"
         field="category_id"
         value={category.category_id}

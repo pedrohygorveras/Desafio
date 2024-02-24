@@ -9,7 +9,7 @@ import { Header } from "@/components/header/title";
 import { ExitConfirmationModal } from "@/components/modal/exit-confirmation";
 import { refreshCache } from "@/components/actions/server";
 
-interface CategoryProps {
+interface ContentPageProps {
   category: {
     category_id: string;
     title: string;
@@ -17,7 +17,7 @@ interface CategoryProps {
   };
 }
 
-const ContentPage: React.FC<CategoryProps> = ({ category }) => {
+const ContentPage: React.FC<ContentPageProps> = ({ category }) => {
   const exitConfirmationModalRef = useRef<HTMLDialogElement | null>(null);
 
   const router = useRouter();
@@ -53,15 +53,15 @@ const ContentPage: React.FC<CategoryProps> = ({ category }) => {
 
       if (res.ok) {
         refreshCache({
-          key: "category-collection",
+          keyTag: "category-collection",
         });
 
         goBack();
       } else {
-        throw new Error("Failed to create a Product");
+        console.error("An error has occurred. Please try again later");
       }
     } catch (error) {
-      console.log(error);
+      console.error("An error has occurred. Please try again later");
     }
   }
 

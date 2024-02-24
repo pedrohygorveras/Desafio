@@ -3,7 +3,7 @@ import React from "react";
 import { DashboardLayout } from "@/components/layouts/dashboard";
 import { ContentPage } from "./content-page";
 
-interface PageProps {
+interface EditCategoryProps {
   params: { category_id: string };
 }
 
@@ -17,13 +17,14 @@ async function getCategory(category_id: string) {
         "Content-type": "application/json",
         category_id: category_id,
       },
+      cache: "no-store",
       next: {
         tags: ["category-collection"],
       },
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      console.error("An error has occurred. Please try again later");
     }
 
     const data = await res.json();
@@ -34,7 +35,7 @@ async function getCategory(category_id: string) {
   }
 }
 
-export default async function EditCategory({ params }: PageProps) {
+const EditCategory: React.FC<EditCategoryProps> = async ({ params }) => {
   const { category_id } = params;
 
   const category = await getCategory(category_id);
@@ -44,4 +45,6 @@ export default async function EditCategory({ params }: PageProps) {
       <ContentPage category={category} />
     </DashboardLayout>
   );
-}
+};
+
+export default EditCategory;
