@@ -1,120 +1,83 @@
-"use client";
-
-import React, { ChangeEvent, useRef, useState } from "react";
-
-import { useRouter } from "next/navigation";
+import React from "react";
 
 import { DashboardLayout } from "@/components/layouts/dashboard";
-import { Input, TextArea } from "@/components/form/controls";
-import { Header } from "@/components/header/title";
-import { ExitConfirmationModal } from "@/components/modal/exit-confirmation";
-import { refreshCache } from "@/components/actions/server";
+import { ContentPage } from "./content-page";
 
-const Create: React.FC = () => {
-  const exitConfirmationModalRef = useRef<HTMLDialogElement | null>(null);
-  const router = useRouter();
+async function getBrands() {
+  try {
+    const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [brandId, setBrandId] = useState("");
+    const index = 0;
+    const limit = 9999;
 
-  function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value);
-  }
-
-  function handleDescriptionChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    setDescription(event.target.value);
-  }
-
-  async function handleSubmit() {
-    try {
-      if (!title || !description) return;
-
-      const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
-
-      const res = await fetch(`${NEXT_PUBLIC_BACKEND_API}/product`, {
-        method: "POST",
+    const res = await fetch(
+      `${NEXT_PUBLIC_BACKEND_API}/brand/collection?index=${index}&limit=${limit}`,
+      {
+        method: "GET",
         headers: {
           "Content-type": "application/json",
-          brand_id: brandId,
         },
-        body: JSON.stringify({
-          title,
-          description,
-        }),
-      });
-
-      if (res.ok) {
-        refreshCache({
-          key: "product-collection",
-        });
-
-        goBack();
-      } else {
-        throw new Error("Failed to create a Product");
+        cache: "no-store",
+        next: {
+          tags: ["brand-collection"],
+        },
       }
-    } catch (error) {
-      console.log(error);
+    );
+
+    if (!res.ok) {
+      console.error("An error has occurred. Please try again later");
     }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  function backToPreviousPage() {
-    const shouldShowConfirmation = title !== "" || description !== "";
+async function getCategories() {
+  try {
+    const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
 
-    if (shouldShowConfirmation && exitConfirmationModalRef.current) {
-      exitConfirmationModalRef.current.showModal();
-    } else {
-      goBack();
+    const index = 0;
+    const limit = 9999;
+
+    const res = await fetch(
+      `${NEXT_PUBLIC_BACKEND_API}/category/collection?index=${index}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+        cache: "no-store",
+        next: {
+          tags: ["category-collection"],
+        },
+      }
+    );
+
+    if (!res.ok) {
+      console.error("An error has occurred. Please try again later");
     }
-  }
 
-  function goBack() {
-    router.push("/dashboard/product");
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
   }
+}
+
+const CreateProduct: React.FC = async () => {
+  const brands = await getBrands();
+  const categories = await getCategories();
 
   return (
     <DashboardLayout>
-      <div className="">
-        <Header title="Novo Produto" goBack={backToPreviousPage} />
-
-        <form className="flex flex-col gap-3">
-          <Input
-            label="Título do produto *"
-            value={title}
-            onChange={handleTitleChange}
-          />
-
-          <TextArea
-            label="Descrição do produto *"
-            value={description}
-            onChange={handleDescriptionChange}
-          />
-
-          <div className="text-right py-10">
-            <button
-              className="btn btn-outline btn-error mr-2"
-              type="button"
-              onClick={backToPreviousPage}
-            >
-              Cancelar
-            </button>
-            <button
-              className="btn btn-success text-white w-32"
-              type="button"
-              onClick={handleSubmit}
-            >
-              Salvar
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <ExitConfirmationModal
-        modalRef={exitConfirmationModalRef}
-        goBack={goBack}
-      />
+      <ContentPage brands={brands.result} categories={categories.result} />
     </DashboardLayout>
   );
 };
 
-export default Create;
+export default CreateProduct;

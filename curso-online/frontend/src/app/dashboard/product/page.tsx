@@ -5,30 +5,59 @@ import { Header } from "@/components/header/title";
 import { Pagination } from "@/components/pagination/main";
 import { ProductCard } from "@/components/card/product";
 import { Filter } from "@/components/filters/search-only";
+import { FiltersOrderBy } from "@/components/filters/order-by";
+import { FilterBrand } from "@/components/filters/search-brand";
+
+interface ProductCategoryProps {
+  product_category_id: string;
+  product_id: string;
+  category_id: string;
+  created_at: string;
+  updated_at: string;
+  category: {
+    category_id: string;
+    title: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+  };
+}
 
 interface ProductProps {
   product_id: string;
   title: string;
   description: string;
+  brand?: {
+    brand_id?: string;
+    title?: string;
+    description?: string;
+  };
+  product_category?: ProductCategoryProps[];
 }
 
 interface QueryProps {
   index?: string | number | undefined;
   limit?: string | number | undefined;
   search?: string | number | undefined;
+  brand?: string | number | undefined;
+  order_by_direction?: string | number | undefined;
 }
 
 async function getProducts(query: QueryProps) {
   try {
     const NEXT_PUBLIC_BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
 
-    const { limit, index, search } = query;
+    const { limit, index, search, brand, order_by_direction } = query;
 
     const parsedIndex = !isNaN(parseInt(String(index), 10)) ? index : 0;
     const parsedLimit = !isNaN(parseInt(String(limit), 10)) ? limit : 6;
     const parsedSearch = search ? `&search=${search}` : "";
+    const parsedBrand = brand ? `&brand=${brand}` : "";
+    const parsedOrderByDirection = order_by_direction
+      ? `&order_by_direction=${order_by_direction}`
+      : "";
 
-    const BASE_URL = `${NEXT_PUBLIC_BACKEND_API}/product/collection?index=${parsedIndex}&limit=${parsedLimit}${parsedSearch}`;
+    const BASE_URL = `${NEXT_PUBLIC_BACKEND_API}/product/collection?index=${parsedIndex}&limit=${parsedLimit}${parsedSearch}${parsedOrderByDirection}${parsedBrand}`;
 
     const res = await fetch(BASE_URL, {
       method: "GET",
@@ -42,7 +71,7 @@ async function getProducts(query: QueryProps) {
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      console.error("An error has occurred. Please try again later");
     }
 
     const data = await res.json();
@@ -71,7 +100,16 @@ export default async function DashboardProduct({
           </Link>
         </div>
 
-        <Filter key="product-collection" />
+        <Filter keyTag="product-collection" />
+
+        <div className="grid grid-cols-12 lg:grid-cols-2 items-center gap-6">
+          <div className="col-12 lg:col-7">
+            <FilterBrand keyTag="product-collection" />
+          </div>
+          <div className="col-12 lg:col-5">
+            <FiltersOrderBy keyTag="product-collection" />
+          </div>
+        </div>
 
         <div className="py-10">
           {result && result.length > 0 ? (
@@ -81,13 +119,13 @@ export default async function DashboardProduct({
                   <div></div>
                   <Pagination
                     qtd={qtd}
-                    key="product-collection"
+                    keyTag="product-collection"
                     route="product"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 auto-rows-[220px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {result.map((product: ProductProps) => {
                   return (
                     <ProductCard key={product.product_id} product={product} />
@@ -106,7 +144,7 @@ export default async function DashboardProduct({
                   </div>
                   <Pagination
                     qtd={qtd}
-                    key="product-collection"
+                    keyTag="product-collection"
                     route="product"
                   />
                 </div>
