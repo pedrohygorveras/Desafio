@@ -16,6 +16,13 @@ interface TextAreaProps {
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
+interface SelectProps {
+  label: string;
+  value: string;
+  children: React.ReactNode;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
 const Input: React.FC<InputProps> = ({
   label,
   value,
@@ -84,4 +91,27 @@ const TextArea: React.FC<TextAreaProps> = ({
   );
 };
 
-export { Input, TextArea };
+const Select: React.FC<SelectProps> = ({
+  label,
+  value,
+  children,
+  onChange,
+}) => {
+  return (
+    <label className="form-control w-full">
+      <div className="label">
+        <span className="label-text">{label}</span>
+        <span className="label-text-alt"></span>
+      </div>
+      <select
+        className="select select-bordered w-full focus:outline-none focus:ring-0"
+        value={value}
+        onChange={onChange}
+      >
+        {children}
+      </select>
+    </label>
+  );
+};
+
+export { Input, TextArea, Select };
