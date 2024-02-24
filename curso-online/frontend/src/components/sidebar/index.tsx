@@ -45,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       <div className="no-scrollbar flex flex-col overflow-y-auto">
         <nav className="my-2 py-4 text-center">
           <div>
-            <h3 className="mb-5 text-sm font-semibold">MENU</h3>
+            <h3 className="mb-5 text-sm font-semibold">BETASHOP</h3>
 
             <ul className="flex flex-col">
               {menu.map((item: MenuItem, index: number) => {
