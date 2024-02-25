@@ -1,6 +1,4 @@
-# Frontend
-
-Bem-vindo ao Beta Shop.
+# Bem-vindo ao Beta Shop.
 
 ## Tecnologias Utilizadas
 
