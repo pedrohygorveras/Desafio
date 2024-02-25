@@ -53,6 +53,11 @@ class App {
       console.log(`Server is running.`);
     });
   }
+
+  public close(): void {
+    this.server.close();
+  }
 }
 
+// export default new App().server;
 export default new App().server;

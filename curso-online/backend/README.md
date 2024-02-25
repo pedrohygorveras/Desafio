@@ -2,7 +2,37 @@
 
 ![image-env-file](./doc/MER/curso-online.drawio.png)
 
-Bem vindo ao meu teste para à vaga de Desenvolvedor REACT PLENO.
+Bem vindo ao Beta Shop.
+
+## Tecnologias Utilizadas
+
+Este projeto foi desenvolvido seguindo os princípios do SOLID e incorpora as seguintes tecnologias:
+
+- **Docker:** Utilizado para facilitar o ambiente de desenvolvimento.
+
+- **TypeScript:** Linguagem utilizada para o desenvolvimento do projeto.
+
+- **PostgreSQL:** Banco de dados relacional utilizado para armazenar e gerenciar os dados do Beta Shop.
+
+- **Prisma:** ORM (Object-Relational Mapping) utilizado para simplificar as operações de banco de dados.
+
+## Testes
+
+O projeto inclui um arquivo dedicado para testes, permitindo a fácil criação de novos registros e a validação das funcionalidades implementadas.
+
+### Executando Testes
+
+Para executar os testes, siga os passos abaixo:
+
+1. Certifique-se de que o ambiente de desenvolvimento e o projeto estão configurados corretamente.
+
+2. Navegue até o diretório do projeto no terminal.
+
+3. Execute o seguinte comando:
+
+   ```bash
+   npm test
+   ```
 
 ## Instalação
 
