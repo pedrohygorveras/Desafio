@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .bg-card {
+    background-image: url("/images/bg-card.png");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+  }
+
+  .grad {
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+  }
+
+  .grad:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .grad-primary {
+    background-image: linear-gradient(
+      to right,
+      #4150a1 0%,
+      #c3218d 51%,
+      #e00f84 100%
+    );
+  }
+
+  .grad-secondary {
+    background-image: linear-gradient(
+      to right,
+      #385284 0%,
+      #5d78a8 51%,
+      #385284 100%
+    );
+  }
+
+  .grad-danger {
+    background-image: linear-gradient(
+      to right,
+      #e52d27 0%,
+      #b31217 51%,
+      #e52d27 100%
+    );
+  }
+
+  .grad-orange {
+    background-image: linear-gradient(
+      to right,
+      #ff512f 0%,
+      #f09819 51%,
+      #ff512f 100%
+    );
+  }
+
+  .grad-success {
+    background-image: linear-gradient(
+      to right,
+      #25d366 0%,
+      #128c7e 51%,
+      #25d366 100%
+    );
+  }
+}

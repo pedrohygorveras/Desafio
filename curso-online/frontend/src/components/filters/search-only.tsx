@@ -7,7 +7,10 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/form/controls";
 import { refreshCache } from "@/components/actions/server";
 
-const Filter: React.FC<{ keyTag: string }> = ({ keyTag }) => {
+const Filter: React.FC<{ keyTag: string; placeholder?: string }> = ({
+  keyTag,
+  placeholder,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -37,7 +40,7 @@ const Filter: React.FC<{ keyTag: string }> = ({ keyTag }) => {
       <Input
         label="Buscar"
         value={search}
-        placeholder="Pesquise por títulos..."
+        placeholder={placeholder ? placeholder : "Pesquise por títulos..."}
         length={false}
         onChange={handleSearchChange}
       />

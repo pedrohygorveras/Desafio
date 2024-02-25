@@ -16,10 +16,18 @@ class ProductCategoryController {
     }
 
     try {
-      const { category_id, order_by_field, order_by_direction, limit, index } =
-        req.query;
+      const {
+        search,
+        category_id,
+        order_by_field,
+        order_by_direction,
+        limit,
+        index,
+      } = req.query;
 
       const filters = {
+        search: typeof search === "string" ? search : undefined,
+
         category_id: typeof category_id === "string" ? category_id : undefined,
 
         order_by_field:

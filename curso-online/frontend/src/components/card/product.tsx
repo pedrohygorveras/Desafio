@@ -6,7 +6,7 @@ import { DeleteItemModal } from "../modal/delete-item";
 
 import Link from "next/link";
 
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit, MdDelete, MdArrowForward } from "react-icons/md";
 
 interface ProductCategoryProps {
   product_category_id: string;
@@ -117,7 +117,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="card-actions h-full items-end space-x-0.5">
             <Link
               className="btn btn-active btn-square w-12 h-12"
+              href={`/`}
+              title="Visualizar"
+            >
+              <MdArrowForward className="text-2xl" />
+            </Link>
+
+            <Link
+              className="btn btn-active btn-square w-12 h-12"
               href={`/dashboard/product/edit/${product.product_id}`}
+              title="Editar"
             >
               <MdEdit className="text-2xl" />
             </Link>
@@ -125,6 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <button
               className="btn btn-active btn-square w-12 h-12"
               onClick={handleDelete}
+              title="Excluir"
             >
               <MdDelete className="text-2xl" />
             </button>

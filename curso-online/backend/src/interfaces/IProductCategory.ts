@@ -1,6 +1,7 @@
 interface iCollectionProductCategory {
   filters: {
     category_id?: string | undefined;
+    search?: string | undefined;
     order_by_field?: string | undefined;
     order_by_direction?: string | undefined;
   };

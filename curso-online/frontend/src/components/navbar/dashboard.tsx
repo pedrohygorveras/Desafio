@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState } from "react";
 
-import { MdApps } from "react-icons/md";
+import { MdApps, MdLogout } from "react-icons/md";
 
 interface DashboardNavbarProps {
   sidebarOpen: boolean;
@@ -54,13 +55,18 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
       </div>
       <div className="navbar-end">
         <button
-          className="btn btn-circle btn-primary md:hidden"
+          className="btn btn-square btn-neutra mr-2 md:hidden"
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
         >
           <MdApps className="text-2xl" />
         </button>
+
+        <Link className="btn btn-neutra" href={"/"}>
+          Sair
+          <MdLogout className="text-2xl" />
+        </Link>
       </div>
     </div>
   );

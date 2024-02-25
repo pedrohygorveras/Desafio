@@ -33,7 +33,7 @@ const FiltersOrderBy: React.FC<{ keyTag: string }> = ({ keyTag }) => {
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-8">
       <Select
         label="Ordenamento"
         value={orderBy}
