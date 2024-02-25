@@ -33,7 +33,7 @@ const FilterBrand: React.FC<{ keyTag: string }> = ({ keyTag }) => {
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-8">
       <Input
         label="Marcas"
         value={brand}
